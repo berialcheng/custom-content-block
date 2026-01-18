@@ -1,0 +1,83 @@
+{
+  "workflowApiVersion": "1.1",
+  "metaData": {
+    "icon": "images/icon.png",
+    "iconSmall": "images/icon-small.png",
+    "category": "message"
+  },
+  "type": "CUSTOM",
+  "lang": {
+    "en-US": {
+      "name": "Product Recommendations",
+      "description": "Display personalized product recommendations with customizable text"
+    },
+    "zh-CN": {
+      "name": "产品推荐",
+      "description": "显示个性化产品推荐，支持自定义文字"
+    }
+  },
+  "arguments": {
+    "execute": {
+      "inArguments": [
+        {
+          "customText": "为你推荐",
+          "products": [],
+          "layout": "grid",
+          "maxProducts": 4
+        }
+      ],
+      "outArguments": []
+    }
+  },
+  "configurationArguments": {
+    "applicationExtensionKey": "{{YOUR_APP_EXTENSION_KEY}}"
+  },
+  "edit": {
+    "url": "{{YOUR_VERCEL_URL}}",
+    "height": 600,
+    "width": 400
+  },
+  "wizardSteps": [
+    {
+      "label": "Configure Products",
+      "key": "configure"
+    }
+  ],
+  "userInterfaces": {
+    "configModal": {
+      "height": 600,
+      "width": 400,
+      "fullscreen": false
+    }
+  },
+  "schema": {
+    "arguments": {
+      "execute": {
+        "inArguments": [
+          {
+            "customText": {
+              "dataType": "Text",
+              "isNullable": true,
+              "direction": "in"
+            },
+            "products": {
+              "dataType": "Text",
+              "isNullable": true,
+              "direction": "in"
+            },
+            "layout": {
+              "dataType": "Text",
+              "isNullable": false,
+              "direction": "in"
+            },
+            "maxProducts": {
+              "dataType": "Number",
+              "isNullable": false,
+              "direction": "in"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

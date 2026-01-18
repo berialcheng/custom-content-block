@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Salesforce MCE Custom Content Block - 产品推荐模块
 
-## Getting Started
+一个用于 Salesforce Marketing Cloud Engagement 的自定义内容块，用于在邮件中展示产品推荐。
 
-First, run the development server:
+## 功能
+
+- 📦 产品推荐展示（支持网格、列表、轮播三种布局）
+- ✏️ 自定义标题文字
+- 👀 实时预览
+- 📱 响应式设计
+- 🚀 适配 Vercel 部署
+
+## 本地开发
 
 ```bash
+# 安装依赖
+npm install
+
+# 启动开发服务器
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+打开 http://localhost:3000 查看效果。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 部署到 Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 方法一：通过 Vercel CLI
 
-## Learn More
+```bash
+# 安装 Vercel CLI
+npm i -g vercel
 
-To learn more about Next.js, take a look at the following resources:
+# 部署
+vercel
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 方法二：通过 GitHub
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. 将代码推送到 GitHub
+2. 在 Vercel 中导入项目
+3. Vercel 会自动部署
 
-## Deploy on Vercel
+## 在 Marketing Cloud 中配置
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **创建 Installed Package**
+   - 登录 Marketing Cloud Setup
+   - 导航到 Platform Tools > Apps > Installed Packages
+   - 创建新的 Package
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. **添加 Custom Content Block 组件**
+   - 在 Package 中添加组件
+   - 选择 "Custom Content Block"
+   - 配置 Endpoint URL 为你的 Vercel URL
+
+3. **更新 config.json**
+   - 将 `public/config.json` 中的 `{{YOUR_VERCEL_URL}}` 替换为你的实际 URL
+   - 将 `{{YOUR_APP_EXTENSION_KEY}}` 替换为你的 App Extension Key
+
+## 配置说明
+
+### config.json 参数
+
+| 参数 | 说明 |
+|------|------|
+| `customText` | 自定义标题文字 |
+| `products` | 产品数组 |
+| `layout` | 布局方式: grid/list/carousel |
+| `maxProducts` | 最大显示产品数量 |
+
+### 产品数据结构
+
+```json
+{
+  "id": "string",
+  "name": "string",
+  "description": "string",
+  "price": "number",
+  "currency": "string",
+  "imageUrl": "string",
+  "productUrl": "string"
+}
+```
+
+## 自定义产品数据
+
+要使用真实产品数据，可以修改 `src/lib/mce-sdk.ts` 中的 `sampleProducts` 或集成您的产品 API。
+
+## 技术栈
+
+- Next.js 16
+- TypeScript
+- Tailwind CSS
+- Salesforce MCE SDK (postmonger)
+
+## License
+
+MIT
