@@ -1,8 +1,8 @@
 {
   "workflowApiVersion": "1.1",
   "metaData": {
-    "icon": "images/icon.png",
-    "iconSmall": "images/icon-small.png",
+    "icon": "images/icon.svg",
+    "iconSmall": "images/icon.svg",
     "category": "message"
   },
   "type": "CUSTOM",
@@ -30,10 +30,10 @@
     }
   },
   "configurationArguments": {
-    "applicationExtensionKey": "{{YOUR_APP_EXTENSION_KEY}}"
+    "applicationExtensionKey": "51aff9de-cde1-4c0a-b73c-83bc5bf6c8d0"
   },
   "edit": {
-    "url": "{{YOUR_VERCEL_URL}}",
+    "url": "https://custom-content-block.onionlancer.com/",
     "height": 600,
     "width": 400
   },
