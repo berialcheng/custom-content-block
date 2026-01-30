@@ -1,73 +1,73 @@
-# Salesforce MCE Custom Content Block - 产品推荐模块
+# Salesforce MCE Custom Content Block - Product Recommendations
 
-一个用于 Salesforce Marketing Cloud Engagement 的自定义内容块，用于在邮件中展示产品推荐。
+A custom content block for Salesforce Marketing Cloud Engagement to display product recommendations in marketing emails.
 
-## 功能
+## Features
 
-- 📦 产品推荐展示（支持网格、列表、轮播三种布局）
-- ✏️ 自定义标题文字
-- 👀 实时预览
-- 📱 响应式设计
-- 🚀 适配 Vercel 部署
+- Product recommendation display (grid, list, carousel layouts)
+- Custom header text
+- Real-time preview
+- Responsive design
+- Vercel deployment ready
 
-## 本地开发
+## Local Development
 
 ```bash
-# 安装依赖
+# Install dependencies
 npm install
 
-# 启动开发服务器
+# Start development server
 npm run dev
 ```
 
-打开 http://localhost:3000 查看效果。
+Open http://localhost:3000 to view the result.
 
-## 部署到 Vercel
+## Deploy to Vercel
 
-### 方法一：通过 Vercel CLI
+### Option 1: Via Vercel CLI
 
 ```bash
-# 安装 Vercel CLI
+# Install Vercel CLI
 npm i -g vercel
 
-# 部署
+# Deploy
 vercel
 ```
 
-### 方法二：通过 GitHub
+### Option 2: Via GitHub
 
-1. 将代码推送到 GitHub
-2. 在 Vercel 中导入项目
-3. Vercel 会自动部署
+1. Push code to GitHub
+2. Import project in Vercel
+3. Vercel will deploy automatically
 
-## 在 Marketing Cloud 中配置
+## Configure in Marketing Cloud
 
-1. **创建 Installed Package**
-   - 登录 Marketing Cloud Setup
-   - 导航到 Platform Tools > Apps > Installed Packages
-   - 创建新的 Package
+1. **Create Installed Package**
+   - Log in to Marketing Cloud Setup
+   - Navigate to Platform Tools > Apps > Installed Packages
+   - Create a new Package
 
-2. **添加 Custom Content Block 组件**
-   - 在 Package 中添加组件
-   - 选择 "Custom Content Block"
-   - 配置 Endpoint URL 为你的 Vercel URL
+2. **Add Custom Content Block Component**
+   - Add a component to the Package
+   - Select "Custom Content Block"
+   - Configure Endpoint URL with your Vercel URL
 
-3. **更新 config.json**
-   - 将 `public/config.json` 中的 `{{YOUR_VERCEL_URL}}` 替换为你的实际 URL
-   - 将 `{{YOUR_APP_EXTENSION_KEY}}` 替换为你的 App Extension Key
+3. **Update config.json**
+   - Replace `{{YOUR_VERCEL_URL}}` in `public/config.json` with your actual URL
+   - Replace `{{YOUR_APP_EXTENSION_KEY}}` with your App Extension Key
 
-## 配置说明
+## Configuration
 
-### config.json 参数
+### config.json Parameters
 
-| 参数 | 说明 |
-|------|------|
-| `customText` | 自定义标题文字 |
-| `products` | 产品数组 |
-| `layout` | 布局方式: grid/list/carousel |
-| `maxProducts` | 最大显示产品数量 |
+| Parameter | Description |
+|-----------|-------------|
+| `customText` | Custom header text |
+| `products` | Product array |
+| `layout` | Layout type: grid/list/carousel |
+| `maxProducts` | Maximum number of products to display |
 
-### 产品数据结构
+### Product Data Structure
 
 ```json
 {
@@ -81,16 +81,35 @@ vercel
 }
 ```
 
-## 自定义产品数据
+## Custom Product Data
 
-要使用真实产品数据，可以修改 `src/lib/mce-sdk.ts` 中的 `sampleProducts` 或集成您的产品 API。
+To use real product data, modify `sampleProducts` in `src/lib/mce-sdk.ts` or integrate your product API.
 
-## 技术栈
+## Architecture
 
-- Next.js 16
-- TypeScript
-- Tailwind CSS
+### MCE SDK Integration (`src/lib/mce-sdk.ts`)
+- `MCEBlockSDK` class wraps the postmonger messaging API for communication with Marketing Cloud
+- Handles SDK initialization, data persistence, and content updates
+- Falls back to sample data when running outside MCE (local development/preview mode)
+
+### Core Components
+- `ContentBlockEditor` (`src/components/ContentBlockEditor.tsx`): Main editor UI with edit/preview tabs. Manages block configuration state and auto-saves to MCE
+- `ProductPreview` (`src/components/ProductPreview.tsx`): Renders product display in three layouts: grid, list, carousel
+
+### Data Flow
+1. MCE loads the block via iframe and initializes postmonger
+2. `MCEBlockSDK.getData()` retrieves saved configuration from MCE
+3. User edits trigger `MCEBlockSDK.setData()` and `setContent()` (email HTML)
+4. `generateEmailHTML()` in ContentBlockEditor produces table-based email HTML
+
+## Tech Stack
+
+- Next.js 16.1.2
+- React 19.2.3
+- TypeScript 5
+- Tailwind CSS 4
 - Salesforce MCE SDK (postmonger)
+- Node.js >= 20
 
 ## License
 
